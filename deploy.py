@@ -21,18 +21,19 @@ st.title("AI Image Classifier")
         
 img = st.file_uploader("Upload your Image")
 
-if img and st.button("Check"):
+if img is not None and st.button("Check"):
     image = Image.open(img)
-    st.image(img)
-    ImageOps.fit(image, (48, 48), Image.Resampling.LANCZOS)
-    img_array = img_to_array(image)
-    new_arr = img_array/255
-    test = []
-    test.append(new_arr)
-    test = np.array(test)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
+    image = ImageOps.grayscale(image)
+    image = ImageOps.fit(image, (48, 48), Image.Resampling.LANCZOS)
+    img_array = np.array(image)
+    img_array = img_array / 255.0
+    img_array = np.expand_dims(img_array, axis=-1)
+    test = np.expand_dims(img_array, axis=0)
+
     y = model.predict(test)
-    if y[0] <= 0.5:
-        st.write("The image is Real.")
+
+    if y[0][0] <= 0.5:
+        st.success("🟢 The image is **Real**.")
     else:
-        st.write("The image is AI Generated.")
-    
+        st.error("🔴 The image is **AI Generated**.")
