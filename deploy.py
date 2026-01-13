@@ -17,8 +17,6 @@ if not os.path.exists(MODEL_PATH):
 
 model = tf.keras.models.load_model(MODEL_PATH)
 
-st.write("Model input shape:", model.input_shape)
-
 st.title("AI Image Classifier")       
         
 img = st.file_uploader("Upload your Image")
