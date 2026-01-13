@@ -24,7 +24,7 @@ img = st.file_uploader("Upload your Image")
 if img and st.button("Check"):
     image = Image.open(img)
     st.image(img)
-    image = ImageOps.fit(image, (48,48), Image.ANTIALIAS)
+    ImageOps.fit(image, (48, 48), Image.Resampling.LANCZOS)
     img_array = img_to_array(image)
     new_arr = img_array/255
     test = []
@@ -32,7 +32,7 @@ if img and st.button("Check"):
     test = np.array(test)
     y = model.predict(test)
     if y[0] <= 0.5:
-        st.write("The given image is Real.")
+        st.write("The image is Real.")
     else:
-        st.write("The given image is AI Generated.")
+        st.write("The image is AI Generated.")
     
