@@ -30,7 +30,9 @@ if img is not None and st.button("Check"):
     test = np.expand_dims(img_array, axis=0)
     y = model.predict(test)
 
-    if y[0][0] <= 0.5:
-        st.success("The image is **Real**.")
-    else:
-        st.error("The image is **AI Generated**.")
+    if y[0][0] < 0.65: confidence = float(y[0][0])
+
+    st.write(f"AI probability: {confidence:.2%}")
+
+    if confidence < 0.65: st.success("🟢 Likely Real Image")
+    else: st.error("🔴 Likely AI Generated")
