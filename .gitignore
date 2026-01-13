@@ -1,0 +1,12 @@
+# Data
+dataset/
+real/
+ai_generated/
+
+# Trained model & arrays
+*.pickle
+*.h5
+
+# Python cache
+__pycache__/
+.ipynb_checkpoints/
